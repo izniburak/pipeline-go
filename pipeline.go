@@ -8,12 +8,12 @@ type PipeInterface interface {
 }
 
 type Pipeline struct {
-	passable PipeValue
-	pipes    []PipeInterface
+	value PipeValue
+	pipes []PipeInterface
 }
 
-func Send(passable interface{}) *Pipeline {
-	return &Pipeline{passable: passable}
+func Send(value interface{}) *Pipeline {
+	return &Pipeline{value: value}
 }
 
 func (p *Pipeline) Through(pipes []PipeInterface) *Pipeline {
@@ -27,19 +27,19 @@ func (p *Pipeline) Then(destination PipeNext) PipeValue {
 	for i := len(p.pipes) - 1; i >= 0; i-- {
 		stack = carry(stack, p.pipes[i])
 	}
-	return stack(p.passable)
+	return stack(p.value)
 }
 
 func (p *Pipeline) ThenReturn() PipeValue {
-	return p.Then(func(passable PipeValue) PipeValue {
-		return passable
+	return p.Then(func(value PipeValue) PipeValue {
+		return value
 	})
 }
 
 func (p *Pipeline) carry() func(PipeNext, PipeInterface) PipeNext {
 	return func(stack PipeNext, pipe PipeInterface) PipeNext {
-		return func(passable PipeValue) PipeValue {
-			return pipe.Handle(passable, stack)
+		return func(value PipeValue) PipeValue {
+			return pipe.Handle(value, stack)
 		}
 	}
 }

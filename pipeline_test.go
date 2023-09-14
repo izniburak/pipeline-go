@@ -11,9 +11,9 @@ import (
 
 type UpperCasePipe struct{}
 
-func (u *UpperCasePipe) Handle(passable PipeValue, next PipeNext) PipeValue {
+func (u *UpperCasePipe) Handle(value PipeValue, next PipeNext) PipeValue {
 	// get value
-	text := passable.(string)
+	text := value.(string)
 
 	capitalized := strings.ToUpper(text)
 	return next(capitalized)
@@ -21,9 +21,9 @@ func (u *UpperCasePipe) Handle(passable PipeValue, next PipeNext) PipeValue {
 
 type TrimSpacePipe struct{}
 
-func (t *TrimSpacePipe) Handle(passable PipeValue, next PipeNext) PipeValue {
+func (t *TrimSpacePipe) Handle(value PipeValue, next PipeNext) PipeValue {
 	// get value
-	text := passable.(string)
+	text := value.(string)
 
 	trimmed := strings.Trim(text, " ")
 	return next(trimmed)
@@ -31,9 +31,9 @@ func (t *TrimSpacePipe) Handle(passable PipeValue, next PipeNext) PipeValue {
 
 type ReplaceTextPipe struct{}
 
-func (r *ReplaceTextPipe) Handle(passable PipeValue, next PipeNext) PipeValue {
+func (r *ReplaceTextPipe) Handle(value PipeValue, next PipeNext) PipeValue {
 	// get value
-	text := passable.(string)
+	text := value.(string)
 
 	replaced := strings.ReplaceAll(text, "BURAKDEMIRTAS.ORG", "BUKI.DEV")
 	return next(replaced)
@@ -53,6 +53,14 @@ func TestStringPipelines(t *testing.T) {
 	if data != "BUKI.DEV" {
 		t.Errorf("got %s, want BUKI.DEV", data)
 	}
+
+	data = Send("   burakdemirtas.org   ").Through(pipes).Then(func(value PipeValue) PipeValue {
+		return strings.ReplaceAll(value.(string), ".DEV", "")
+	})
+
+	if data != "BUKI" {
+		t.Errorf("got %s, want BUKI", data)
+	}
 }
 
 //
@@ -61,9 +69,9 @@ func TestStringPipelines(t *testing.T) {
 
 type DoublePipe struct{}
 
-func (s *DoublePipe) Handle(passable PipeValue, next PipeNext) PipeValue {
+func (s *DoublePipe) Handle(value PipeValue, next PipeNext) PipeValue {
 	// get value
-	numbers := passable.([]int)
+	numbers := value.([]int)
 
 	result := make([]int, len(numbers))
 	for i, v := range numbers {
@@ -75,9 +83,9 @@ func (s *DoublePipe) Handle(passable PipeValue, next PipeNext) PipeValue {
 
 type SumPipe struct{}
 
-func (s *SumPipe) Handle(passable PipeValue, next PipeNext) PipeValue {
+func (s *SumPipe) Handle(value PipeValue, next PipeNext) PipeValue {
 	// get value
-	numbers := passable.([]int)
+	numbers := value.([]int)
 
 	sum := 0
 	for _, v := range numbers {
