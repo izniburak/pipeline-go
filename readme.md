@@ -1,4 +1,4 @@
-# pipeline-go [![](https://github.com/izniburak/pipeline-go/workflows/build/badge.svg)](https://github.com/izniburak/pipeline-go/actions) [![PkgGoDev](https://pkg.go.dev/badge/github.com/izniburak/pipeline-go)](https://pkg.go.dev/github.com/izniburak/pipeline-go)
+# pipeline-go [![](https://github.com/izniburak/pipeline-go/actions/workflows/go.yml/badge.svg)](https://github.com/izniburak/pipeline-go/actions) [![PkgGoDev](https://pkg.go.dev/badge/github.com/izniburak/pipeline-go)](https://pkg.go.dev/github.com/izniburak/pipeline-go)
 
 This package allows you to use the Pipeline pattern in your processes, and it's built upon the Chain of Responsibility (CoR) design pattern.
 
