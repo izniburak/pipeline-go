@@ -1,8 +1,10 @@
 # pipeline-go [![](https://github.com/izniburak/pipeline-go/workflows/build/badge.svg)](https://github.com/izniburak/pipeline-go/actions) [![PkgGoDev](https://pkg.go.dev/badge/github.com/izniburak/pipeline-go)](https://pkg.go.dev/github.com/izniburak/pipeline-go)
 
-This package allows you to employ the Pipeline pattern in your processes, and it's built upon the Chain of Responsibility (CoR) design pattern.
+This package allows you to use the Pipeline pattern in your processes, and it's built upon the Chain of Responsibility (CoR) design pattern.
 
 CoR is a behavioral design pattern that processes given data through a series of handlers. When a request reaches the pipe class, it processes the data and then forwards it to the next handler. The principle behind this pattern is straightforward.
+
+![pipeline](/.github/static/pipeline.png)
 
 > In summary, the Pipeline is a design pattern tailored for managing sequential modifications to an object. Imagine it as an assembly line: each station represents a pipe, and by the end of the line, you're left with a transformed object.
 
